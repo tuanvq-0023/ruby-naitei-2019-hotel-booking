@@ -22,7 +22,7 @@ gem "uglifier", "3.2.0"
 
 group :development, :test do
   gem "byebug", "9.0.6", platform: :mri
-  gem "sqlite3", "1.3.13"
+  gem "mysql2", "~> 0.5.2"
 end
 
 group :development do
@@ -41,8 +41,7 @@ group :test do
 end
 
 group :production do
-  gem "fog", "1.42"
   gem "pg", "0.20.0"
 end
 
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i(mingw mswin x64_mingw jruby)
