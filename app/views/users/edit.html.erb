@@ -1,0 +1,23 @@
+<% provide :title, t("edit_user") %>
+<% provide :button_text, t("save_change") %>
+<div class="full-row page-content">
+    <div class="container no-padding">
+        <div class="main-contain-wrapper">
+            <div class="m-grid__item m-grid__item--fluid  m-grid__item--order-tablet-and-mobile-1  m-login__wrapper">
+                <div class="m-login__body">
+                    <div class="m-login__signin">
+                        <div class="m-login__title">
+                            <h3><%= t "update_profile" %></h3>
+                            <p><%= t "fill_to_update" %></p>
+                        </div>
+                        <%= render "form" %>
+                        <div class="gravatar_edit">
+                          <%= gravatar_for @user %>
+                          <a href="http://gravatar.com/emails" target="_blank"><%= t "change" %></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
