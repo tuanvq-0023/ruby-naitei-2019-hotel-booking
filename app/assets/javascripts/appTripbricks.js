@@ -85,3 +85,32 @@ $(document).ready(function() {
         autoPlayHoverPause: true
     });
 });
+
+jQuery(document).ready(function($) {
+    $('#hotelCarousel').carousel({
+        interval: 5000
+    });
+    //Handles the carousel thumbnails
+    $('[id^=carousel-hotel-]').hover(function() {
+        var id_selector = $(this).attr("id");
+        try {
+            var id = /-(\d+)$/.exec(id_selector)[1];
+            console.log(id_selector, id);
+            jQuery('#hotelCarousel').carousel(parseInt(id));
+        } catch (e) {
+            console.log('Regex failed!', e);
+        }
+    });
+    $('.hide-bullets [id^=carousel-hotel-]').click(function() {
+        $('#modal_Room-desc').modal({
+            show: 'true'
+        });
+    });
+    // When the carousel slides, auto update the text
+    $('#hotelCarousel').on('slid.bs.carousel', function(e) {
+        var id = $('.item.active').data('slide-number');
+        // $('#carousel-text').html($('#slide-content-' + id).html());
+        $("#hotel-slider-thumbs li").removeClass("active");
+        $('#hotel-slider-thumbs li[data-item-number = ' + id + ']').addClass("active");
+    });
+});

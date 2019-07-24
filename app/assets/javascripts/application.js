@@ -8,4 +8,5 @@
 //= require jquery3
 //= require owl.carousel
 //= require angular
+//= require angular-rails-templates
 //= require appTripbricks
