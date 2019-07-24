@@ -1,0 +1,4 @@
+<%= t "hello" %> <%= @user.name %>,
+
+<%= t "account_activation_email" %>
+<%= edit_account_activation_url I18n.locale, @user.activation_token, email: @user.email %>
