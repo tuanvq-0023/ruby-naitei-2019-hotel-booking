@@ -1,4 +1,8 @@
+<% if current_page? rooms_path %>
+  <div class="full-row form_tour_search gray_search_form">
+<% else %>
   <div class="full-row form_tour_search">
+<% end %>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <form id="tour_search_form" name="tour_search_form" method="get" action="">
             <div class="tour_search_wrapper">
