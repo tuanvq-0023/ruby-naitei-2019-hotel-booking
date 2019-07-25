@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2019_07_24_224313) do
     t.index ["user_id"], name: "index_hotel_admins_on_user_id"
   end
 
+  create_table "hotel_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "hotel_id"
+    t.bigint "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_images_on_hotel_id"
+    t.index ["image_id"], name: "index_hotel_images_on_image_id"
+  end
+
   create_table "hotels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -36,6 +45,12 @@ ActiveRecord::Schema.define(version: 2019_07_24_224313) do
     t.string "description"
     t.decimal "rate_point", precision: 3, scale: 1
     t.decimal "geo_location", precision: 18, scale: 14
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "picture"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

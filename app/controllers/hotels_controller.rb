@@ -13,12 +13,13 @@ class HotelsController < ApplicationController
   def new
     @hotel = Hotel.new
     @hotel.hotel_admins.build
+    @hotel.images.build
   end
 
   def create
     @hotel = Hotel.new hotel_params
 
-    if @hotel.save
+    if @hotel.save  
       flash[:info] = t ".hotel_created"
     else
       flash[:info] = t ".hotel_created_failed"
@@ -26,7 +27,13 @@ class HotelsController < ApplicationController
     render :new
   end
 
-  def show; end
+  def show
+    @images = 
+      Kaminari
+      .paginate_array(@hotel.images)
+      .page(params[:page])
+      .per Settings.max_image_per_page
+  end
 
   def edit; end
 
@@ -50,7 +57,6 @@ class HotelsController < ApplicationController
 
   def load_hotel
     @hotel = Hotel.find_by id: params[:id]
-
     return if @hotel
     flash[:danger] = t "hotel_not_found"
     redirect_to root_path
@@ -68,6 +74,7 @@ class HotelsController < ApplicationController
       :country, :city, :state,
       :website, :price_start, :price_end,
       :luxury, :description,
-      hotel_admins_attributes: [:id, :user_id])
+      hotel_admins_attributes: [:id, :user_id],
+      images_attributes: [:picture, :_destroy])
   end
 end
