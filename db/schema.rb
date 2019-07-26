@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_032738) do
+ActiveRecord::Schema.define(version: 2019_07_24_224313) do
+
+  create_table "hotel_admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "hotel_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "permissions"
+    t.index ["hotel_id"], name: "index_hotel_admins_on_hotel_id"
+    t.index ["user_id"], name: "index_hotel_admins_on_user_id"
+  end
+
+  create_table "hotels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone_number"
+    t.string "country"
+    t.string "city"
+    t.string "state"
+    t.string "website"
+    t.decimal "price_start", precision: 8, scale: 2
+    t.decimal "price_end", precision: 8, scale: 2
+    t.integer "luxury"
+    t.string "description"
+    t.decimal "rate_point", precision: 3, scale: 1
+    t.decimal "geo_location", precision: 18, scale: 14
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
