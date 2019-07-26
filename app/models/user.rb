@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :hotel_admins, dependent: :destroy
+  has_many :hotels, through: :hotel_admins
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :email_downcase
   before_create :create_activation_digest
@@ -15,6 +17,7 @@ class User < ApplicationRecord
                        allow_nil: true
   scope :ordered_by_name, ->{order :name}
   enum role: %i(user adminHotel admin)
+
   def self.digest string
     cost = if ActiveModel::SecurePassword.min_cost
              BCrypt::Engine::MIN_COST

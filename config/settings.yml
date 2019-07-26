@@ -7,3 +7,4 @@ expired_time: 2
 address: "Floor, 9, 434 Tran Khat Chan, Hai Ba Trung, Hanoi"
 telephone: "098 453 0860"
 email_tripbricks: "info@tripbricks.com"
+max_hotel_per_page: 5

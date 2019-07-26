@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
     get "/rooms", to: "static_pages#room"
     resources :users
+    resources :hotels
     resources :password_resets, only: %i(new create edit update)
     resources :account_activations, only: :edit
   end
