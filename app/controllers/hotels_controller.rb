@@ -75,6 +75,6 @@ class HotelsController < ApplicationController
       :website, :price_start, :price_end,
       :luxury, :description,
       hotel_admins_attributes: [:id, :user_id],
-      images_attributes: [:picture, :_destroy])
+      images_attributes: [:id, :picture, :_destroy])
   end
 end
