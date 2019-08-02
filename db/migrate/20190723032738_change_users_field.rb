@@ -1,6 +1,5 @@
 class ChangeUsersField < ActiveRecord::Migration[5.2]
   def change
-    change_column :users, :admin, :integer, null: false, default: 0
-    rename_column :users, :admin, :role
+    add_column :users, :role, :integer, null: false, default: 0
   end
 end
