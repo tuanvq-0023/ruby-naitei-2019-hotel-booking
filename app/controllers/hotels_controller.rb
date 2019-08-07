@@ -1,32 +1,42 @@
 class HotelsController < ApplicationController
-  before_action :logged_in_user
-  before_action :load_hotel, :admin_hotel, except: %i(index new create)
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
-    @hotels =
-      Kaminari
-      .paginate_array(current_user.hotels)
-      .page(params[:page])
-      .per Settings.max_hotel_per_page
+    @hotels = kmnr_paginate_record Hotel.all,
+      params[:page],
+      Settings.max_hotel_per_page
   end
 
-  def new
-    @hotel = Hotel.new
-    @hotel.hotel_admins.build
+  def admin_index
+    if current_user.has_role? :moderator
+      @hotels = kmnr_paginate_record Hotel.with_role(:moderator, current_user),
+        params[:page], Settings.max_hotel_per_page
+    end
+
+    if current_user.has_role? :admin
+      @hotels = kmnr_paginate_record Hotel.all,
+        params[:page], Settings.max_hotel_per_page
+    end
   end
+
+  def new; end
 
   def create
     @hotel = Hotel.new hotel_params
 
     if @hotel.save
-      flash[:info] = t ".hotel_created"
+      flash[:success] = t ".hotel_created"
+      current_user.add_role :moderator, @hotel
     else
-      flash[:info] = t ".hotel_created_failed"
+      flash[:notice] = t ".hotel_created_failed"
     end
-    render :new
+    redirect_to new_hotel_url
   end
 
   def show; end
+
+  def admin_show; end
 
   def edit; end
 
@@ -36,7 +46,7 @@ class HotelsController < ApplicationController
       redirect_to hotels_url
     else
       flash[:notice] = t ".hotel_updated_failed"
-      render :edit
+      redirect_to edit_hotels_url
     end
   end
 
@@ -48,18 +58,8 @@ class HotelsController < ApplicationController
 
   private
 
-  def load_hotel
-    @hotel = Hotel.find_by id: params[:id]
-
-    return if @hotel
-    flash[:danger] = t "hotel_not_found"
-    redirect_to root_path
-  end
-
-  def admin_hotel
-    return if current_user.hotels.find_by id: params[:id]
-    flash[:danger] = t ".permission_denied"
-    redirect_to hotels_url
+  def kmnr_paginate_record record, page, max_page
+    Kaminari.paginate_array(record).page(page).per max_page
   end
 
   def hotel_params
@@ -67,7 +67,6 @@ class HotelsController < ApplicationController
       :address, :phone_number,
       :country, :city, :state,
       :website, :price_start, :price_end,
-      :luxury, :description,
-      hotel_admins_attributes: [:id, :user_id])
+      :luxury, :description)
   end
 end

@@ -12,16 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_08_02_014801) do
 
-  create_table "hotel_admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "hotel_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "permissions"
-    t.index ["hotel_id"], name: "index_hotel_admins_on_hotel_id"
-    t.index ["user_id"], name: "index_hotel_admins_on_user_id"
-  end
-
   create_table "hotels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "address"
