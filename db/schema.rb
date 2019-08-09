@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_014801) do
+ActiveRecord::Schema.define(version: 2019_08_08_021127) do
+
+  create_table "hotel_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "hotel_id"
+    t.bigint "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_images_on_hotel_id"
+    t.index ["image_id"], name: "index_hotel_images_on_image_id"
+  end
 
   create_table "hotels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -26,6 +35,12 @@ ActiveRecord::Schema.define(version: 2019_08_02_014801) do
     t.string "description"
     t.decimal "rate_point", precision: 3, scale: 1
     t.decimal "geo_location", precision: 18, scale: 14
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

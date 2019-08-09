@@ -33,9 +33,20 @@
 
   <%= f.label :price_end, t(".prize_end") %>
   <%= f.number_field :price_end, step: :any, class: "form-control" %>
+  
+  <div class="form-group" id="file-field">
+    <%= f.label :images, class: "col-md-4 control-label"%>
+    <div class="col-md-4">
+      <table class="user-photo-form">
+        <%= f.fields_for :images do |image| %>
+          <%= render "image_fields", f: image %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association (t ".add_a_photo"), f, :images, class: "btn btn-default" %>
+        </div>
+      </table>
+    </div>
+  </div>
 
-  <%= f.fields_for :hotel_admins do |hotel_admin_form| %>
-    <%= hotel_admin_form.hidden_field :user_id, value: current_user.id %>
-  <% end %>
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

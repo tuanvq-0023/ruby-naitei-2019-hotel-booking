@@ -67,6 +67,7 @@ class HotelsController < ApplicationController
       :address, :phone_number,
       :country, :city, :state,
       :website, :price_start, :price_end,
-      :luxury, :description)
+      :luxury, :description,
+      images_attributes: [:id, :image, :_destroy])
   end
 end

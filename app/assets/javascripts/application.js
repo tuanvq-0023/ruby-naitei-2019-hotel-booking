@@ -10,3 +10,5 @@
 //= require angular
 //= require angular-rails-templates
 //= require appTripbricks
+//= require hotel
+//= require cocoon

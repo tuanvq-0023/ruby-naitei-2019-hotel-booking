@@ -7,6 +7,6 @@ class User < ApplicationRecord
   scope :ordered_by_name, ->{order :name}
 
   def assign_default_role
-    self.add_role(:user) if self.roles.blank?
+    self.add_role(:moderator) if self.roles.blank?
   end
 end
