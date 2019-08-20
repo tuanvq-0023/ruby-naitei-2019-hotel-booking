@@ -140,3 +140,15 @@ input {
   margin: 2px 2px;
   opacity: 0.9;
 }
+
+#user_remember_me {
+  width: 20px;
+}
+
+.alert {
+  margin: 20px 35% 0 35%;
+  position: absolute;
+  width: 30%;
+  z-index: 1000;
+  text-align: center;
+}
